@@ -21,7 +21,7 @@ No n8n, abra **Settings › Community Nodes › Install** (só o dono e os admin
 
 **Este pacote é para o n8n próprio (self-hosted).** A interface está em português, e o n8n Cloud só instala nós verificados pelo n8n, o que exige interface em inglês. Se você usa o n8n Cloud, avise a Blocos: o pacote em inglês sai quando houver quem precise dele.
 
-A interface do próprio n8n continua em inglês ("Execute step", "Credentials"…): só o conteúdo dos nós da Blocos está em português.
+A interface do próprio n8n continua em inglês ("Execute step", "Credentials"…): só o conteúdo dos nós da Blocos está em português. A exceção é o campo **Events** do gatilho: é o nome que o editor do n8n exige para listar os eventos no painel de nós.
 
 ## Manter o pacote nas atualizações do n8n
 
@@ -66,7 +66,7 @@ Observações:
 
 ## Gatilho
 
-O nó **Blocos Marketing Trigger** inicia um fluxo quando algo acontece na Blocos: uma tarefa é criada ou concluída, um cliente aprova um plano de ação ou abre um relatório, um formulário é respondido, a sincronização diária termina, uma conexão cai e mais. Escolha **Todos os eventos** para receber também os eventos que a Blocos criar depois. Os nomes dos eventos são os mesmos de Desenvolvedores › Webhooks na Blocos.
+O nó **Blocos Marketing Trigger** inicia um fluxo quando algo acontece na Blocos: uma tarefa é criada ou concluída, um cliente aprova um plano de ação ou abre um relatório, um formulário é respondido, a sincronização diária termina, uma conexão cai e mais. Escolha **Todos os eventos** para receber também os eventos que a Blocos criar depois. Os nomes dos eventos são os mesmos de Desenvolvedores › Webhooks na Blocos. No painel de nós do n8n, cada evento aparece como uma opção ("Quando uma tarefa for concluída"…), que cria o gatilho com o evento já marcado.
 
 - Ativar o fluxo registra um webhook na Blocos (Configurações › Desenvolvedores › Webhooks); desativar remove o webhook.
 - Toda entrega é assinada. O gatilho confere o cabeçalho `X-Webhook-Signature` (HMAC-SHA256 de `<timestamp>.<corpo>` com o segredo do webhook) e recusa entregas com mais de cinco minutos. A requisição que não passa na conferência recebe `401` e nunca inicia o fluxo.

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+
+- O painel de nós do n8n lista os eventos do gatilho ("Quando uma tarefa for concluída"…): clicar num deles cria o gatilho com o evento já marcado. Para isso o campo de eventos passa a se chamar **Events**, o único nome (com **Event** e **Trigger On**) que o editor do n8n reconhece.
+- O subtítulo dos nós no fluxo mostra a ação em português ("Obter vários negócios") e os nomes dos eventos, no lugar dos valores internos ("getAll: business", "task.completed").
+- Nada muda para os fluxos que já usam o pacote.
+
 ## 0.2.1
 
 - Publicação pelo Trusted Publisher do npm, sem token. Nada muda no pacote.

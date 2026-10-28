@@ -21,73 +21,130 @@ const EVENTS = [
 	{
 		name: 'Ação feita num anúncio',
 		value: 'ad.changed',
+		action: 'Quando um anúncio for pausado ou reativado',
 		description: 'Um anúncio foi pausado ou reativado pela Blocos',
 	},
-	{ name: 'Cliente abriu o relatório', value: 'report.viewed' },
-	{ name: 'Cliente alterado', value: 'client.updated' },
-	{ name: 'Cliente aprovou o relatório', value: 'report.approved' },
-	{ name: 'Cliente criado', value: 'client.created' },
-	{ name: 'Cliente excluído', value: 'client.deleted' },
-	{ name: 'Cliente pediu ajustes no relatório', value: 'report.changes_requested' },
-	{ name: 'Cliente registrou o dia no diário de leads', value: 'daily_log.saved' },
-	{ name: 'Comentário do cliente no portal', value: 'portal.comment' },
-	{ name: 'Comentário numa tarefa', value: 'task.commented' },
+	{
+		name: 'Cliente abriu o relatório',
+		value: 'report.viewed',
+		action: 'Quando o cliente abrir um relatório',
+	},
+	{ name: 'Cliente alterado', value: 'client.updated', action: 'Quando um cliente for alterado' },
+	{
+		name: 'Cliente aprovou o relatório',
+		value: 'report.approved',
+		action: 'Quando o cliente aprovar um relatório',
+	},
+	{ name: 'Cliente criado', value: 'client.created', action: 'Quando um cliente for criado' },
+	{ name: 'Cliente excluído', value: 'client.deleted', action: 'Quando um cliente for excluído' },
+	{
+		name: 'Cliente pediu ajustes no relatório',
+		value: 'report.changes_requested',
+		action: 'Quando o cliente pedir ajustes num relatório',
+	},
+	{
+		name: 'Cliente registrou o dia no diário de leads',
+		value: 'daily_log.saved',
+		action: 'Quando o cliente registrar o dia no diário de leads',
+	},
+	{
+		name: 'Comentário do cliente no portal',
+		value: 'portal.comment',
+		action: 'Quando o cliente comentar no portal',
+	},
+	{
+		name: 'Comentário numa tarefa',
+		value: 'task.commented',
+		action: 'Quando alguém comentar numa tarefa',
+	},
 	{
 		name: 'Conexão caiu',
 		value: 'connection.expired',
+		action: 'Quando uma conexão cair',
 		description: 'Uma conexão de dados precisa ser reconectada ou foi revogada',
 	},
-	{ name: 'Documento criado', value: 'document.created' },
-	{ name: 'Documento excluído', value: 'document.deleted' },
+	{ name: 'Documento criado', value: 'document.created', action: 'Quando um documento for criado' },
+	{
+		name: 'Documento excluído',
+		value: 'document.deleted',
+		action: 'Quando um documento for excluído',
+	},
 	{
 		name: 'Formulário respondido',
 		value: 'form.submitted',
+		action: 'Quando um formulário for respondido',
 		description: 'Traz os dados pessoais que a pessoa digitou',
 	},
 	{
 		name: 'Marco registrado na linha do tempo',
 		value: 'milestone.created',
+		action: 'Quando um marco for registrado na linha do tempo',
 		description: 'Um marco foi adicionado à linha do tempo',
 	},
-	{ name: 'Meta atingida', value: 'plan.target_met' },
-	{ name: 'Meta não atingida', value: 'plan.target_missed' },
-	{ name: 'Negócio alterado', value: 'business.updated' },
-	{ name: 'Negócio criado', value: 'business.created' },
-	{ name: 'Negócio excluído', value: 'business.deleted' },
+	{ name: 'Meta atingida', value: 'plan.target_met', action: 'Quando um plano atingir a meta' },
+	{
+		name: 'Meta não atingida',
+		value: 'plan.target_missed',
+		action: 'Quando um plano não atingir a meta',
+	},
+	{ name: 'Negócio alterado', value: 'business.updated', action: 'Quando um negócio for alterado' },
+	{ name: 'Negócio criado', value: 'business.created', action: 'Quando um negócio for criado' },
+	{ name: 'Negócio excluído', value: 'business.deleted', action: 'Quando um negócio for excluído' },
 	{
 		name: 'Plano alterado depois de enviado ou aprovado',
 		value: 'plan.changed_after_approval',
+		action: 'Quando um plano mudar depois de enviado ou aprovado',
 		description: 'O plano mudou depois de enviado ou aprovado e precisa ser enviado de novo',
 	},
-	{ name: 'Plano aprovado', value: 'plan.approved' },
-	{ name: 'Plano concluído', value: 'plan.completed' },
-	{ name: 'Plano enviado ao cliente', value: 'plan.sent' },
+	{ name: 'Plano aprovado', value: 'plan.approved', action: 'Quando um plano for aprovado' },
+	{ name: 'Plano concluído', value: 'plan.completed', action: 'Quando um plano for concluído' },
+	{
+		name: 'Plano enviado ao cliente',
+		value: 'plan.sent',
+		action: 'Quando um plano for enviado ao cliente',
+	},
 	{
 		name: 'Plano rejeitado',
 		value: 'plan.rejected',
+		action: 'Quando um plano for rejeitado',
 		description: 'O cliente pediu ajustes',
 	},
-	{ name: 'Relatório liberado no portal', value: 'report.released' },
-	{ name: 'Relatório publicado', value: 'report.published' },
+	{
+		name: 'Relatório liberado no portal',
+		value: 'report.released',
+		action: 'Quando um relatório for liberado no portal',
+	},
+	{
+		name: 'Relatório publicado',
+		value: 'report.published',
+		action: 'Quando um relatório for publicado',
+	},
 	{
 		name: 'Sinal novo',
 		value: 'signal.created',
+		action: 'Quando surgir um sinal novo',
 		description: 'Um sinal novo do motor proativo ou do resumo semanal',
 	},
 	{
 		name: 'Sincronização diária concluída',
 		value: 'sync.completed',
+		action: 'Quando a sincronização diária terminar',
 		description: 'A sincronização diária dos dados de uma conta terminou',
 	},
-	{ name: 'Sincronização falhou', value: 'sync.failed' },
-	{ name: 'Tarefa alterada', value: 'task.updated' },
-	{ name: 'Tarefa concluída', value: 'task.completed' },
-	{ name: 'Tarefa criada', value: 'task.created' },
-	{ name: 'Tarefa excluída', value: 'task.deleted' },
-	{ name: 'Tarefa mudou de etapa', value: 'task.status_changed' },
+	{ name: 'Sincronização falhou', value: 'sync.failed', action: 'Quando uma sincronização falhar' },
+	{ name: 'Tarefa alterada', value: 'task.updated', action: 'Quando uma tarefa for alterada' },
+	{ name: 'Tarefa concluída', value: 'task.completed', action: 'Quando uma tarefa for concluída' },
+	{ name: 'Tarefa criada', value: 'task.created', action: 'Quando uma tarefa for criada' },
+	{ name: 'Tarefa excluída', value: 'task.deleted', action: 'Quando uma tarefa for excluída' },
+	{
+		name: 'Tarefa mudou de etapa',
+		value: 'task.status_changed',
+		action: 'Quando uma tarefa mudar de etapa',
+	},
 	{
 		name: 'Todos os eventos',
 		value: '*',
+		action: 'Quando qualquer evento acontecer na Blocos',
 		description: 'Todos os eventos, inclusive os que a Blocos criar depois',
 	},
 ];
@@ -105,6 +162,11 @@ function subscribedEvents(context: IHookFunctions): string[] {
 	return events.includes('*') ? ['*'] : events;
 }
 
+// The canvas shows the event names, not the internal values ("task.completed").
+const EVENT_NAMES = JSON.stringify(
+	Object.fromEntries(EVENTS.map((event) => [event.value, event.name])),
+);
+
 export class BlocosTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Blocos Marketing Trigger',
@@ -112,7 +174,8 @@ export class BlocosTrigger implements INodeType {
 		icon: { light: 'file:../../icons/blocos.svg', dark: 'file:../../icons/blocos.dark.svg' },
 		group: ['trigger'],
 		version: 1,
-		subtitle: '={{$parameter["events"].join(", ")}}',
+		// Parentheses: right after "=>", a bare "{" would open a function body, not the object.
+		subtitle: `={{ $parameter["events"].map((event) => (${EVENT_NAMES})[event] || event).join(", ") }}`,
 		description: 'Inicia o fluxo quando algo acontece na Blocos',
 		defaults: {
 			name: 'Blocos Marketing Trigger',
@@ -142,7 +205,9 @@ export class BlocosTrigger implements INodeType {
 				default: '',
 			},
 			{
-				displayName: 'Eventos',
+				// The n8n node panel lists a trigger's events (from each option's `action`) only
+				// when this label is "Event", "Events" or "Trigger On" (n8n editor, actions parser).
+				displayName: 'Events',
 				name: 'events',
 				type: 'multiOptions',
 				required: true,
