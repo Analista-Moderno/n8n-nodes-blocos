@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-blocos",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n nodes for Blocos Marketing: businesses, clients, tasks, action plans, reports and metrics, plus a trigger for platform events.",
 	"license": "MIT",
 	"homepage": "https://github.com/Analista-Moderno/n8n-nodes-blocos#readme",
@@ -16,7 +16,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Analista-Moderno/n8n-nodes-blocos.git"
+		"url": "git+https://github.com/Analista-Moderno/n8n-nodes-blocos.git"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"scripts": {
 		"build": "n8n-node build",
