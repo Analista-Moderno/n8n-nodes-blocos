@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-blocos",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Nós do n8n para a Blocos Marketing: negócios, clientes, tarefas, planos de ação, relatórios e métricas, mais um gatilho para os eventos da plataforma.",
 	"license": "MIT",
 	"homepage": "https://github.com/Analista-Moderno/n8n-nodes-blocos#readme",

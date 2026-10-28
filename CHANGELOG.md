@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Publicação pelo Trusted Publisher do npm, sem token. Nada muda no pacote.
+
 ## 0.2.0
 
 - Interface e documentação em português do Brasil: nomes dos nós, operações, campos, dicas, eventos do gatilho, mensagens de erro e README. Os nomes passam a ser os da Blocos (negócio, plano de ação, "Tarefa mudou de etapa"…).
