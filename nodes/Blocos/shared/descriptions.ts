@@ -55,8 +55,8 @@ async function throwBlocosError(
 		this.getNode(),
 		(typeof body === 'object' && body ? body : {}) as JsonObject,
 		{
-			message: error?.message ?? `Blocos answered with status ${response.statusCode}`,
-			description: error?.code ? `Blocos error code: ${error.code}` : undefined,
+			message: error?.message ?? `A Blocos respondeu com o status ${response.statusCode}`,
+			description: error?.code ? `Código de erro da Blocos: ${error.code}` : undefined,
 			httpCode: String(response.statusCode),
 		},
 	);
@@ -86,23 +86,23 @@ function idSelect(
 		description,
 		modes: [
 			{
-				displayName: 'From List',
+				displayName: 'Da lista',
 				name: 'list',
 				type: 'list',
-				placeholder: `Select a ${displayName.toLowerCase()}...`,
+				placeholder: 'Selecione na lista...',
 				typeOptions: { searchListMethod, searchable: true },
 			},
 			{
-				displayName: 'By ID',
+				displayName: 'Por ID',
 				name: 'id',
 				type: 'string',
-				placeholder: 'e.g. 0b6c7c8e-1f0a-4f8e-9a51-6d2b5c3e9f10',
+				placeholder: 'ex.: 0b6c7c8e-1f0a-4f8e-9a51-6d2b5c3e9f10',
 				validation: [
 					{
 						type: 'regex',
 						properties: {
 							regex: UUID,
-							errorMessage: `Not a valid ${displayName.toLowerCase()} ID`,
+							errorMessage: `ID de ${displayName.toLowerCase()} inválido`,
 						},
 					},
 				],
@@ -112,24 +112,24 @@ function idSelect(
 }
 
 export const businessSelect = idSelect(
-	'Business',
+	'Negócio',
 	'businessId',
 	'getBusinesses',
-	'The business (the company that pays for the media) to use',
+	'O negócio (a empresa que paga pela mídia) a usar',
 );
 
-export const clientSelect = idSelect('Client', 'clientId', 'getClients', 'The client to use');
+export const clientSelect = idSelect('Cliente', 'clientId', 'getClients', 'O cliente a usar');
 
 /** "Return All" + "Limit" for Get Many operations of endpoints paginated with limit/offset. */
 export function paginationFields(resource: string): INodeProperties[] {
 	const show = { resource: [resource], operation: ['getAll'] };
 	return [
 		{
-			displayName: 'Return All',
+			displayName: 'Retornar todos',
 			name: 'returnAll',
 			type: 'boolean',
 			default: false,
-			description: 'Whether to return all results or only up to a given limit',
+			description: 'Se deve retornar todos os resultados ou só até o limite informado',
 			displayOptions: { show },
 			routing: {
 				send: { paginate: '={{ $value }}' },
@@ -147,12 +147,12 @@ export function paginationFields(resource: string): INodeProperties[] {
 			},
 		},
 		{
-			displayName: 'Limit',
+			displayName: 'Limite',
 			name: 'limit',
 			type: 'number',
 			default: 50,
 			typeOptions: { minValue: 1, maxValue: 500 },
-			description: 'Max number of results to return',
+			description: 'Número máximo de resultados a retornar',
 			displayOptions: { show: { ...show, returnAll: [false] } },
 			routing: {
 				send: { type: 'query', property: 'limit' },
@@ -165,59 +165,59 @@ export function paginationFields(resource: string): INodeProperties[] {
 /** Contact and address fields shared by businesses and clients. */
 export const contactFields: INodeProperties[] = [
 	{
-		displayName: 'Address',
+		displayName: 'Endereço',
 		name: 'address',
 		type: 'string',
 		default: '',
-		placeholder: 'e.g. Rua Augusta',
+		placeholder: 'ex.: Rua Augusta',
 		routing: toBody('address'),
 	},
 	{
-		displayName: 'Address Number',
+		displayName: 'Número',
 		name: 'addressNumber',
 		type: 'string',
 		default: '',
-		placeholder: 'e.g. 1500',
+		placeholder: 'ex.: 1500',
 		routing: toBody('address_number'),
 	},
 	{
-		displayName: 'City',
+		displayName: 'Cidade',
 		name: 'city',
 		type: 'string',
 		default: '',
-		placeholder: 'e.g. São Paulo',
+		placeholder: 'ex.: São Paulo',
 		routing: toBody('city'),
 	},
 	{
-		displayName: 'Email',
+		displayName: 'E-mail',
 		name: 'email',
 		type: 'string',
 		default: '',
-		placeholder: 'e.g. nathan@example.com',
+		placeholder: 'ex.: ana@agencia.com.br',
 		routing: toBody('email'),
 	},
 	{
-		displayName: 'Neighborhood',
+		displayName: 'Bairro',
 		name: 'neighborhood',
 		type: 'string',
 		default: '',
-		placeholder: 'e.g. Consolação',
+		placeholder: 'ex.: Consolação',
 		routing: toBody('neighborhood'),
 	},
 	{
-		displayName: 'Phone',
+		displayName: 'Telefone',
 		name: 'phone',
 		type: 'string',
 		default: '',
-		placeholder: 'e.g. +55 11 99999-0000',
+		placeholder: 'ex.: +55 11 99999-0000',
 		routing: toBody('phone'),
 	},
 	{
-		displayName: 'Postal Code',
+		displayName: 'CEP',
 		name: 'postalCode',
 		type: 'string',
 		default: '',
-		placeholder: 'e.g. 01305-100',
+		placeholder: 'ex.: 01305-100',
 		routing: toBody('postal_code'),
 	},
 ];

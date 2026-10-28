@@ -15,97 +15,81 @@ import { isValidSignature } from './signature';
 
 type Webhook = { id: string; url: string; is_active: boolean };
 
-// English names for the platform event catalog (lib/platform/events.ts in Blocos).
-// "All Events" also receives events added to Blocos after this list.
+// Nomes do catálogo de eventos da plataforma (lib/platform/events.ts na Blocos).
+// "Todos os eventos" também recebe os eventos que a Blocos criar depois desta lista.
 const EVENTS = [
-	{ name: 'Action Plan Approved', value: 'plan.approved' },
 	{
-		name: 'Action Plan Changed After Approval',
-		value: 'plan.changed_after_approval',
-		description: 'The plan changed after it was sent or approved and must be sent again',
-	},
-	{ name: 'Action Plan Completed', value: 'plan.completed' },
-	{
-		name: 'Action Plan Rejected',
-		value: 'plan.rejected',
-		description: 'The client asked for changes',
-	},
-	{ name: 'Action Plan Sent to Client', value: 'plan.sent' },
-	{ name: 'Action Plan Target Met', value: 'plan.target_met' },
-	{ name: 'Action Plan Target Missed', value: 'plan.target_missed' },
-	{
-		name: 'Ad Changed',
+		name: 'Ação feita num anúncio',
 		value: 'ad.changed',
-		description: 'An ad was paused or reactivated through Blocos',
+		description: 'Um anúncio foi pausado ou reativado pela Blocos',
 	},
+	{ name: 'Cliente abriu o relatório', value: 'report.viewed' },
+	{ name: 'Cliente alterado', value: 'client.updated' },
+	{ name: 'Cliente aprovou o relatório', value: 'report.approved' },
+	{ name: 'Cliente criado', value: 'client.created' },
+	{ name: 'Cliente excluído', value: 'client.deleted' },
+	{ name: 'Cliente pediu ajustes no relatório', value: 'report.changes_requested' },
+	{ name: 'Cliente registrou o dia no diário de leads', value: 'daily_log.saved' },
+	{ name: 'Comentário do cliente no portal', value: 'portal.comment' },
+	{ name: 'Comentário numa tarefa', value: 'task.commented' },
 	{
-		name: 'All Events',
-		value: '*',
-		description: 'Every event, including ones added to Blocos later',
-	},
-	{ name: 'Business Created', value: 'business.created' },
-	{ name: 'Business Deleted', value: 'business.deleted' },
-	{ name: 'Business Updated', value: 'business.updated' },
-	{ name: 'Client Created', value: 'client.created' },
-	{ name: 'Client Deleted', value: 'client.deleted' },
-	{ name: 'Client Updated', value: 'client.updated' },
-	{
-		name: 'Connection Expired',
+		name: 'Conexão caiu',
 		value: 'connection.expired',
-		description: 'A data connection needs to be reconnected or was revoked',
+		description: 'Uma conexão de dados precisa ser reconectada ou foi revogada',
 	},
+	{ name: 'Documento criado', value: 'document.created' },
+	{ name: 'Documento excluído', value: 'document.deleted' },
 	{
-		name: 'Daily Lead Log Saved',
-		value: 'daily_log.saved',
-		description: 'The client recorded the day in the lead log',
-	},
-	{ name: 'Document Created', value: 'document.created' },
-	{ name: 'Document Deleted', value: 'document.deleted' },
-	{
-		name: 'Form Submitted',
+		name: 'Formulário respondido',
 		value: 'form.submitted',
-		description: 'Carries the personal data the respondent typed',
+		description: 'Traz os dados pessoais que a pessoa digitou',
 	},
 	{
-		name: 'Milestone Created',
+		name: 'Marco registrado na linha do tempo',
 		value: 'milestone.created',
-		description: 'A milestone was added to the timeline',
+		description: 'Um marco foi adicionado à linha do tempo',
 	},
+	{ name: 'Meta atingida', value: 'plan.target_met' },
+	{ name: 'Meta não atingida', value: 'plan.target_missed' },
+	{ name: 'Negócio alterado', value: 'business.updated' },
+	{ name: 'Negócio criado', value: 'business.created' },
+	{ name: 'Negócio excluído', value: 'business.deleted' },
 	{
-		name: 'Portal Comment',
-		value: 'portal.comment',
-		description: 'The client commented in the portal',
+		name: 'Plano alterado depois de enviado ou aprovado',
+		value: 'plan.changed_after_approval',
+		description: 'O plano mudou depois de enviado ou aprovado e precisa ser enviado de novo',
 	},
+	{ name: 'Plano aprovado', value: 'plan.approved' },
+	{ name: 'Plano concluído', value: 'plan.completed' },
+	{ name: 'Plano enviado ao cliente', value: 'plan.sent' },
 	{
-		name: 'Report Approved',
-		value: 'report.approved',
-		description: 'The client approved the report',
+		name: 'Plano rejeitado',
+		value: 'plan.rejected',
+		description: 'O cliente pediu ajustes',
 	},
+	{ name: 'Relatório liberado no portal', value: 'report.released' },
+	{ name: 'Relatório publicado', value: 'report.published' },
 	{
-		name: 'Report Changes Requested',
-		value: 'report.changes_requested',
-		description: 'The client asked for changes in the report',
-	},
-	{ name: 'Report Published', value: 'report.published' },
-	{ name: 'Report Released to Portal', value: 'report.released' },
-	{ name: 'Report Viewed', value: 'report.viewed', description: 'The client opened the report' },
-	{
-		name: 'Signal Created',
+		name: 'Sinal novo',
 		value: 'signal.created',
-		description: 'A new signal from the proactive engine or the weekly summary',
+		description: 'Um sinal novo do motor proativo ou do resumo semanal',
 	},
 	{
-		name: 'Sync Completed',
+		name: 'Sincronização diária concluída',
 		value: 'sync.completed',
-		description: 'The daily data sync of an account finished',
+		description: 'A sincronização diária dos dados de uma conta terminou',
 	},
-	{ name: 'Sync Failed', value: 'sync.failed' },
-	{ name: 'Task Comment Created', value: 'task.commented' },
-	{ name: 'Task Completed', value: 'task.completed' },
-	{ name: 'Task Created', value: 'task.created' },
-	{ name: 'Task Deleted', value: 'task.deleted' },
-	{ name: 'Task Stage Changed', value: 'task.status_changed' },
-	{ name: 'Task Updated', value: 'task.updated' },
+	{ name: 'Sincronização falhou', value: 'sync.failed' },
+	{ name: 'Tarefa alterada', value: 'task.updated' },
+	{ name: 'Tarefa concluída', value: 'task.completed' },
+	{ name: 'Tarefa criada', value: 'task.created' },
+	{ name: 'Tarefa excluída', value: 'task.deleted' },
+	{ name: 'Tarefa mudou de etapa', value: 'task.status_changed' },
+	{
+		name: 'Todos os eventos',
+		value: '*',
+		description: 'Todos os eventos, inclusive os que a Blocos criar depois',
+	},
 ];
 
 // Only the obvious "this machine" case: Blocos itself refuses every private address.
@@ -129,7 +113,7 @@ export class BlocosTrigger implements INodeType {
 		group: ['trigger'],
 		version: 1,
 		subtitle: '={{$parameter["events"].join(", ")}}',
-		description: 'Starts the workflow when events happen in Blocos',
+		description: 'Inicia o fluxo quando algo acontece na Blocos',
 		defaults: {
 			name: 'Blocos Marketing Trigger',
 		},
@@ -152,18 +136,18 @@ export class BlocosTrigger implements INodeType {
 		properties: [
 			{
 				displayName:
-					'The API key needs write access and a role with the "Manage API, webhooks and connected apps" permission: activating the workflow registers a webhook in Blocos, and deactivating it removes the webhook',
+					'A chave de API precisa de acesso de escrita e de um cargo com a permissão "Gerenciar API, webhooks e apps conectados (MCP)": ativar o fluxo registra um webhook na Blocos, e desativar remove o webhook',
 				name: 'notice',
 				type: 'notice',
 				default: '',
 			},
 			{
-				displayName: 'Events',
+				displayName: 'Eventos',
 				name: 'events',
 				type: 'multiOptions',
 				required: true,
 				default: [],
-				description: 'The events to listen to',
+				description: 'Os eventos a escutar',
 				options: EVENTS,
 			},
 		],
@@ -202,15 +186,15 @@ export class BlocosTrigger implements INodeType {
 				if (LOOPBACK_HOST.test(new URL(webhookUrl).hostname)) {
 					throw new NodeOperationError(
 						this.getNode(),
-						'Blocos can only deliver events to a public address',
+						'A Blocos só entrega eventos num endereço público',
 						{
 							description:
-								'This n8n instance is reachable only on this machine. Set the N8N_WEBHOOK_URL environment variable of n8n (WEBHOOK_URL before n8n 2.x) to its public address and activate the workflow again.',
+								'Este n8n só pode ser acessado nesta máquina. Defina a variável de ambiente N8N_WEBHOOK_URL do n8n (WEBHOOK_URL antes do n8n 2.x) com o endereço público dele e ative o fluxo de novo.',
 						},
 					);
 				}
 
-				const workflowName = this.getWorkflow().name ?? 'workflow';
+				const workflowName = this.getWorkflow().name ?? 'fluxo';
 				let webhook: Webhook & { secret: string };
 				try {
 					webhook = await blocosApiRequest<Webhook & { secret: string }>(
@@ -230,10 +214,10 @@ export class BlocosTrigger implements INodeType {
 					const reason = (error as { description?: string }).description;
 					throw new NodeApiError(this.getNode(), error as JsonObject, {
 						message: reason
-							? `Blocos did not register the webhook: ${reason}`
-							: 'Blocos did not register the webhook',
+							? `A Blocos não registrou o webhook: ${reason}`
+							: 'A Blocos não registrou o webhook',
 						description:
-							'Check that the API key has write access, that its role has the "Manage API, webhooks and connected apps" permission, and that the n8n webhook address is public.',
+							'Confira se a chave de API tem acesso de escrita, se o cargo dela tem a permissão "Gerenciar API, webhooks e apps conectados (MCP)" e se o endereço do webhook do n8n é público.',
 					});
 				}
 
@@ -253,7 +237,7 @@ export class BlocosTrigger implements INodeType {
 						const { httpCode, message } = error as { httpCode?: string; message?: string };
 						if (httpCode !== '404') {
 							// Only message and status: the error object can carry the request headers (the API key).
-							this.logger.warn('Blocos did not remove the webhook', { httpCode, message });
+							this.logger.warn('A Blocos não removeu o webhook', { httpCode, message });
 							return false;
 						}
 					}
@@ -277,7 +261,7 @@ export class BlocosTrigger implements INodeType {
 		});
 		if (!valid) {
 			const response = this.getResponseObject();
-			response.status(401).send('Invalid signature').end();
+			response.status(401).send('Assinatura inválida').end();
 			return { noWebhookResponse: true };
 		}
 

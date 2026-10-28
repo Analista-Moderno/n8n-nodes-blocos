@@ -113,7 +113,7 @@ describe('create', () => {
 	]) {
 		it(`recusa endereço desta máquina antes de chamar a API (${new URL(url).hostname})`, async () => {
 			const ctx = hookContext({ url });
-			await assert.rejects(() => create.call(ctx), /public address/);
+			await assert.rejects(() => create.call(ctx), /endereço público/);
 			assert.deepEqual(ctx.requests, []);
 		});
 	}
@@ -140,8 +140,8 @@ describe('create', () => {
 		await assert.rejects(
 			() => create.call(ctx),
 			(error) =>
-				error.message === `Blocos did not register the webhook: ${reason}` &&
-				/Manage API, webhooks/.test(error.description),
+				error.message === `A Blocos não registrou o webhook: ${reason}` &&
+				/Gerenciar API, webhooks/.test(error.description),
 		);
 	});
 });

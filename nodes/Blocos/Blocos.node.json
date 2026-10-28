@@ -3,10 +3,21 @@
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Marketing & Content", "Analytics", "Productivity"],
+	"alias": [
+		"blocos",
+		"agência",
+		"negócios",
+		"clientes",
+		"tarefas",
+		"planos de ação",
+		"relatórios",
+		"métricas",
+		"marketing"
+	],
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "https://github.com/Analista-Moderno/n8n-nodes-blocos#credentials"
+				"url": "https://github.com/Analista-Moderno/n8n-nodes-blocos#credenciais"
 			}
 		],
 		"primaryDocumentation": [

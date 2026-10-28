@@ -13,27 +13,27 @@ export class BlocosApi implements ICredentialType {
 
 	icon: Icon = { light: 'file:../icons/blocos.svg', dark: 'file:../icons/blocos.dark.svg' };
 
-	documentationUrl = 'https://github.com/Analista-Moderno/n8n-nodes-blocos#credentials';
+	documentationUrl = 'https://github.com/Analista-Moderno/n8n-nodes-blocos#credenciais';
 
 	properties: INodeProperties[] = [
 		{
-			displayName: 'API Key',
+			displayName: 'Chave de API',
 			name: 'apiKey',
 			type: 'string',
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			placeholder: 'e.g. ak_...',
+			placeholder: 'ex.: ak_...',
 			description:
-				'Key created in Blocos under Settings > Developers > API keys. It acts with the role of the person who created it.',
+				'Chave criada na Blocos em Configurações › Desenvolvedores › Chaves de API. Ela age com o cargo de quem a criou.',
 		},
 		{
-			displayName: 'Base URL',
+			displayName: 'URL base',
 			name: 'baseUrl',
 			type: 'string',
 			required: true,
 			default: 'https://app.blocosmarketing.com',
-			description: 'Address of the Blocos platform. Change it only to point at a test environment.',
+			description: 'Endereço da plataforma Blocos. Mude só para apontar para um ambiente de teste.',
 		},
 	];
 

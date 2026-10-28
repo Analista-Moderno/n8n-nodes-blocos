@@ -16,7 +16,7 @@ export class Blocos implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description:
-			'Work with businesses, clients, tasks, action plans, reports and metrics in Blocos',
+			'Trabalhe com negócios, clientes, tarefas, planos de ação, relatórios e métricas da Blocos',
 		defaults: {
 			name: 'Blocos Marketing',
 		},
@@ -41,17 +41,17 @@ export class Blocos implements INodeType {
 		},
 		properties: [
 			{
-				displayName: 'Resource',
+				displayName: 'Recurso',
 				name: 'resource',
 				type: 'options',
 				noDataExpression: true,
 				options: [
-					{ name: 'Action Plan', value: 'actionPlan' },
-					{ name: 'Business', value: 'business' },
-					{ name: 'Client', value: 'client' },
-					{ name: 'Metric', value: 'metric' },
-					{ name: 'Report', value: 'report' },
-					{ name: 'Task', value: 'task' },
+					{ name: 'Cliente', value: 'client' },
+					{ name: 'Métrica', value: 'metric' },
+					{ name: 'Negócio', value: 'business' },
+					{ name: 'Plano de ação', value: 'actionPlan' },
+					{ name: 'Relatório', value: 'report' },
+					{ name: 'Tarefa', value: 'task' },
 				],
 				default: 'task',
 			},

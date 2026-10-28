@@ -3,15 +3,16 @@
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Marketing & Content", "Productivity"],
+	"alias": ["blocos", "gatilho", "webhook", "eventos", "agência"],
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "https://github.com/Analista-Moderno/n8n-nodes-blocos#credentials"
+				"url": "https://github.com/Analista-Moderno/n8n-nodes-blocos#credenciais"
 			}
 		],
 		"primaryDocumentation": [
 			{
-				"url": "https://github.com/Analista-Moderno/n8n-nodes-blocos#trigger"
+				"url": "https://github.com/Analista-Moderno/n8n-nodes-blocos#gatilho"
 			}
 		]
 	}
