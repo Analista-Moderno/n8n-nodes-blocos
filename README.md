@@ -7,6 +7,7 @@ A Blocos Marketing é uma plataforma para agências de marketing: reúne os dado
 O [n8n](https://n8n.io/) é uma plataforma de automação de fluxos com [licença fair-code](https://docs.n8n.io/sustainable-use-license/).
 
 [Instalação](#instalação) ·
+[Manter nas atualizações do n8n](#manter-o-pacote-nas-atualizações-do-n8n) ·
 [Operações](#operações) ·
 [Gatilho](#gatilho) ·
 [Credenciais](#credenciais) ·
@@ -21,6 +22,25 @@ No n8n, abra **Settings › Community Nodes › Install** (só o dono e os admin
 **Este pacote é para o n8n próprio (self-hosted).** A interface está em português, e o n8n Cloud só instala nós verificados pelo n8n, o que exige interface em inglês. Se você usa o n8n Cloud, avise a Blocos: o pacote em inglês sai quando houver quem precise dele.
 
 A interface do próprio n8n continua em inglês ("Execute step", "Credentials"…): só o conteúdo dos nós da Blocos está em português.
+
+## Manter o pacote nas atualizações do n8n
+
+No n8n em Docker (Easypanel, Portainer, Coolify, docker compose…), os pacotes da comunidade ficam em `/home/node/.n8n/nodes`, dentro do container. Se essa pasta não estiver num volume, cada atualização ou reinício recria o container e o pacote some (o banco do n8n continua lembrando dele e avisa que está faltando).
+
+**Antes de tudo:** confira se a variável `N8N_ENCRYPTION_KEY` está definida. Sem ela, a chave que protege as credenciais mora em `/home/node/.n8n/config`; copie o valor de `encryptionKey` desse arquivo para a variável antes de montar o volume, ou as credenciais salvas deixam de abrir.
+
+1. **Volume em `/home/node/.n8n`.** No serviço do n8n, monte um volume nesse caminho e implante (no Easypanel: Armazenamento › Adicionar Montagem de Volume). Em modo fila (editor, webhook e worker), faça em cada serviço, com um volume para cada um: cada serviço instala o pacote no próprio disco.
+2. **Reinstalação automática.** Acrescente `N8N_REINSTALL_MISSING_PACKAGES=true` às variáveis de ambiente de cada serviço. Ao iniciar, o n8n reinstala do npm, na mesma versão, todo pacote que o banco lembra e que não está no disco.
+3. **Confira.** Implante de novo sem mudar nada e veja em **Settings › Community Nodes** se o `n8n-nodes-blocos` continua lá.
+
+Na hora de atualizar o n8n:
+
+- Faça um backup do banco do n8n antes: as migrações de uma versão nova não voltam atrás só trocando a imagem.
+- Use uma versão fixa na imagem (por exemplo `n8nio/n8n:2.46.0`), nunca `latest`, e suba uma versão por vez, lendo as notas de lançamento.
+- Em modo fila, editor, webhook e worker precisam rodar a mesma versão: atualize o editor primeiro (ele aplica as migrações) e os outros logo em seguida.
+- Depois, confira **Settings › Community Nodes** e rode um nó da Blocos. Se o pacote sumir, implante o serviço de novo: a reinstalação automática age ao iniciar.
+
+Atualizar o próprio pacote da Blocos é o botão **Update** em **Settings › Community Nodes**, quando sai uma versão nova.
 
 ## Operações
 
